@@ -1,7 +1,7 @@
 class TicketsController < ApplicationController
   before_filter :authenticate_user!, only: [:index]
 
-  before_action :set_ticket, only: [:show, :edit, :update, :history]
+  before_action :set_ticket, only: [:show, :edit, :update, :history, :reply]
 
   def index
     @tickets = Ticket.all.includes(:user)
@@ -10,7 +10,6 @@ class TicketsController < ApplicationController
   end
 
   def show
-
   end
 
   def new
@@ -32,7 +31,8 @@ class TicketsController < ApplicationController
   end
 
   def update
-    if @ticket.update(ticket_params)
+    @ticket.status = 'waiting_for_staff' unless user_signed_in?
+    if @ticket.update_attributes(ticket_params)
       redirect_to @ticket, notice: 'Ticket was successfully updated.'
     else
       render action: 'edit'
@@ -43,13 +43,21 @@ class TicketsController < ApplicationController
 
   end
 
-private
-  def redirect_to_new
-    redirect_to new_ticket_path unless user_signed_in?
+  def reply
+    if @ticket.update_attributes(reply_params)
+      Mailer.response_added(@ticket, reply_params[:response]).deliver
+      redirect_to @ticket
+    else
+      render action: 'show'
+    end
   end
-
+private
   def set_ticket
     @ticket = Ticket.find_by!(token: params[:id])
+  end
+
+  def reply_params
+    params.require(:ticket).permit(:status, :user_id, :response)
   end
 
   def ticket_params

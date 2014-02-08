@@ -2,6 +2,9 @@
   %strong Reference:
   = @ticket.token
 %p
+  %strong Status:
+  = t("tickets.statuses.#{@ticket.status}")
+%p
   %strong Customer:
   = "#{@ticket.customer_name} (#{@ticket.customer_email})"
 %p
@@ -13,6 +16,25 @@
 %p
   %strong Body:
   = @ticket.body
+
+- if user_signed_in?
+  %hr
+  %h3 Add response
+  = form_for @ticket, url: reply_ticket_path(@ticket), method: :put do |f|
+    .form-inline
+      .form-group
+        = f.label :user_id, 'Reassign to:'
+        = f.select :user_id, User.select([:name, :id]).map{|user| [user.name, user.id]}, include_blank: true
+      .form-group
+        = f.label :status, 'Change ticket status:'
+        = f.select :status, Ticket::STATUSES.map{|status| [t("tickets.statuses.#{status}"), status]}, include_blank: true
+    .field
+      = f.label :response, 'Add response:'
+      %br
+      = f.text_area :response, class: 'form-control'
+
+    .actions
+      = f.submit 'Reply', class: 'btn btn-default'
 
 = link_to 'Edit', edit_ticket_path(@ticket)
 |

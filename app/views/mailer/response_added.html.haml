@@ -1,0 +1,15 @@
+%h3
+  You ticket was updated
+
+- if @ticket.user.present?
+  %p
+    = "Owner: #{@ticket.user.name}"
+
+%p
+  = "Status: #{t("tickets.statuses.#{@ticket.status}")}"
+
+- if @response
+  %p
+    = "Reponse: #{@response}"
+%p
+  = link_to "Edit ticket", edit_ticket_url(@ticket)

@@ -23,7 +23,7 @@ en:
   hello: "Hello world"
   tickets:
     statuses:
-      waiting_for_stall: 'Waiting for Staff Response'
+      waiting_for_staff: 'Waiting for Staff Response'
       waiting_for_customer: 'Waiting for Customer'
       on_hold: 'On Hold'
       cancelled: 'Cancelled'

@@ -1,4 +1,5 @@
 class Ticket < ActiveRecord::Base
+  attr_accessor :response
   has_paper_trail only: [:status, :user_id], on: [:update]
 
   before_validation :set_token, on: :create
@@ -18,6 +19,7 @@ class Ticket < ActiveRecord::Base
   def to_param
     self.token
   end
+
 private
   def set_token
     begin
