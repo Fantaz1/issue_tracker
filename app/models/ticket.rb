@@ -1,9 +1,11 @@
 class Ticket < ActiveRecord::Base
-  has_paper_trail
+  has_paper_trail only: [:status, :user_id], on: [:update]
 
   before_validation :set_reference, on: :create
 
   belongs_to :user
+
+  STATUSES = %w(waiting_for_staff waiting_for_customer on_hold cancelled completed)
 
   validates_presence_of :reference
   validates_presence_of :customer_email
@@ -11,6 +13,7 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :body
   validates_presence_of :subject
   validates_presence_of :department
+  validates_inclusion_of :status, :in => STATUSES
 
 private
   def set_reference

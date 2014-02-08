@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20140208124955) do
     t.string   "subject"
     t.string   "department"
     t.text     "body"
-    t.string   "state"
+    t.string   "status",         default: "waiting_for_staff"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "reference"
