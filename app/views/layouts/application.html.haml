@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %title IssueTracker
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    .container
+      = render 'layouts/header'
+    .container
+      .col-md-8.col-md-offset-2
+        - if flash[:alert]
+          .alert.alert-warning.alert-dismissable
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+            = flash[:alert]
+        - if flash[:notice]
+          .alert.alert-success
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+            = flash[:notice]
+        = yield

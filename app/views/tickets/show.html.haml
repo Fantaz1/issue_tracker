@@ -1,0 +1,20 @@
+%p
+  %strong Reference:
+  = @ticket.reference
+%p
+  %strong Customer:
+  = "#{@ticket.customer_name} (#{@ticket.customer_email})"
+%p
+  %strong Subject:
+  = @ticket.subject
+%p
+  %strong Department:
+  = @ticket.department
+%p
+  %strong Body:
+  = @ticket.body
+
+
+= link_to 'Edit', edit_ticket_path(@ticket)
+|
+= link_to 'Back', user_signed_in? ? tickets_path : root_path

@@ -1,0 +1,10 @@
+%h3
+  Your request has been received!
+%p
+  = "Subject: #{@ticket.subject}"
+%p
+  = "Department: #{@ticket.department}"
+%p
+  = "Body: #{@ticket.body}"
+%p
+  = link_to "Edit ticket", edit_ticket_url(@ticket)

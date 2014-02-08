@@ -1,0 +1,6 @@
+.border-form-div
+  %h2 Sign in
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    = f.text_field :name, :autofocus => true, placeholder: 'User name...', class: 'form-control'
+    = f.password_field :password, placeholder: 'Password...', class: 'form-control'
+    = f.submit "Sign in", class: 'btn btn-default'
