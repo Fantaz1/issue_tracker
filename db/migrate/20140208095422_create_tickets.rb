@@ -5,6 +5,7 @@ class CreateTickets < ActiveRecord::Migration
       t.string :subject
       t.string :department
       t.text :body
+      t.string :token
       t.string :status, default: 'waiting_for_staff'
 
       t.timestamps

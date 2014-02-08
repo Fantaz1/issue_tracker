@@ -9,8 +9,6 @@
         %th Department
         %th Body
         %th
-        %th
-        %th
     %tbody
       - @tickets.each do |ticket|
         %tr
@@ -20,8 +18,6 @@
           %td= ticket.department
           %td= ticket.body
           %td= link_to 'Show', ticket
-          %td= link_to 'Edit', edit_ticket_path(ticket)
-          %td= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' }
 - else
   %h5
     You don't have any tickets          

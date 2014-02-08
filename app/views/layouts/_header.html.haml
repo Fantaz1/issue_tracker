@@ -15,13 +15,13 @@
                 = link_to "All tickets", tickets_path
               %li.divider
               %li
-                = link_to "New unassigned tickets", tickets_path(state: 'waiting_for_staff')
+                = link_to "New unassigned tickets", tickets_path(status: 'waiting_for_staff')
               %li
-                = link_to "Open Tickets", tickets_path(state: 'waiting_for_customer')
+                = link_to "Open Tickets", tickets_path(status: 'waiting_for_customer')
               %li
-                = link_to "On hold tickets", tickets_path(state: 'on_hold')
+                = link_to "On hold tickets", tickets_path(status: 'on_hold')
               %li
-                = link_to "Closed Tickets", tickets_path(state: 'completed')
+                = link_to "Closed Tickets", tickets_path(status: 'completed')
               %li.divider
               %li
                 = link_to "Add ticket", new_ticket_path

@@ -1,12 +1,12 @@
 class TicketsController < ApplicationController
-  before_filter :authenticate_user!, only: [:index, :destroy]
+  before_filter :authenticate_user!, only: [:index]
 
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :history]
+  before_action :set_ticket, only: [:show, :edit, :update, :history]
 
   def index
     @tickets = Ticket.all.includes(:user)
-    @tickets = @tickets.where(state: params[:state]) if params.include?(:state)
-    @tickets = @tickets.where("reference = :param OR subject = :param", param: params[:q]) if params.include?(:q)
+    @tickets = @tickets.where(status: params[:status]) if params.include?(:status)
+    @tickets = @tickets.where("token = :param OR subject = :param", param: params[:q]) if params.include?(:q)
   end
 
   def show
@@ -39,11 +39,6 @@ class TicketsController < ApplicationController
     end
   end
 
-  def destroy
-    @ticket.destroy
-    redirect_to tickets_url
-  end
-
   def history
 
   end
@@ -54,7 +49,7 @@ private
   end
 
   def set_ticket
-    @ticket = Ticket.find(params[:id])
+    @ticket = Ticket.find_by!(token: params[:id])
   end
 
   def ticket_params

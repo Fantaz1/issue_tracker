@@ -1,13 +1,13 @@
 class Ticket < ActiveRecord::Base
   has_paper_trail only: [:status, :user_id], on: [:update]
 
-  before_validation :set_reference, on: :create
+  before_validation :set_token, on: :create
 
   belongs_to :user
 
   STATUSES = %w(waiting_for_staff waiting_for_customer on_hold cancelled completed)
 
-  validates_presence_of :reference
+  validates_presence_of :token
   validates_presence_of :customer_email
   validates_presence_of :customer_name
   validates_presence_of :body
@@ -15,11 +15,14 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :department
   validates_inclusion_of :status, :in => STATUSES
 
+  def to_param
+    self.token
+  end
 private
-  def set_reference
+  def set_token
     begin
-      self.reference = (1..5).map{|i| generate_code(i)}.join('-')
-    end while(Ticket.where(reference: self.reference).exists?)
+      self.token = (1..5).map{|i| generate_code(i)}.join('-')
+    end while(Ticket.where(token: self.token).exists?)
   end
 
   def generate_code(i)

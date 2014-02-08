@@ -1,6 +1,6 @@
 %p
   %strong Reference:
-  = @ticket.reference
+  = @ticket.token
 %p
   %strong Customer:
   = "#{@ticket.customer_name} (#{@ticket.customer_email})"
@@ -13,7 +13,6 @@
 %p
   %strong Body:
   = @ticket.body
-
 
 = link_to 'Edit', edit_ticket_path(@ticket)
 |
