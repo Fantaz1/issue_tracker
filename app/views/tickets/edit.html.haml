@@ -1,5 +1,10 @@
+%ol.breadcrumb
+  %li
+    = link_to "Tickets", tickets_path
+  %li
+    = link_to @ticket.token, ticket_path(@ticket)
+  %li.active
+    Edit
+
 %h1 Editing ticket
 = render 'form'
-= link_to 'Show', @ticket
-|
-= link_to 'Back', user_signed_in? ? tickets_path : root_path

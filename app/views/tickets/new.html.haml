@@ -1,6 +1,10 @@
+%ol.breadcrumb
+  %li
+    = link_to "Tickets", tickets_path
+  %li.active
+    New ticket
+
 %h1
   New ticket
 
 = render 'form'
-
-= link_to 'Back', user_signed_in? ? tickets_path : root_path

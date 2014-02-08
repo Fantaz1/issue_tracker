@@ -1,0 +1,19 @@
+%ol.breadcrumb
+  %li
+    = link_to "Tickets", tickets_path
+  %li
+    = link_to @ticket.token, ticket_path(@ticket)
+  %li.active
+    History
+
+.row.text-center
+  %h1
+    Ticket history
+
+  - if @ticket.versions.empty?
+    %h5
+      History is empty
+  - else
+    - @ticket.versions.each do |version|
+      %p
+        = history_changes(version)

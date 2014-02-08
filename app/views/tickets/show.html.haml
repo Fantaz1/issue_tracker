@@ -1,6 +1,11 @@
-%p
-  %strong Reference:
-  = @ticket.token
+%ol.breadcrumb
+  %li
+    = link_to "Tickets", tickets_path
+  %li.active
+    = @ticket.token
+
+= link_to "History", history_ticket_path(@ticket), class: 'pull-right btn btn-info'
+
 %p
   %strong Status:
   = t("tickets.statuses.#{@ticket.status}")
@@ -17,6 +22,8 @@
   %strong Body:
   = @ticket.body
 
+= link_to 'Edit', edit_ticket_path(@ticket), class: 'btn btn-default'
+
 - if user_signed_in?
   %hr
   %h3 Add response
@@ -27,7 +34,7 @@
         = f.select :user_id, User.select([:name, :id]).map{|user| [user.name, user.id]}, include_blank: true
       .form-group
         = f.label :status, 'Change ticket status:'
-        = f.select :status, Ticket::STATUSES.map{|status| [t("tickets.statuses.#{status}"), status]}, include_blank: true
+        = f.select :status, Ticket::STATUSES.map{|status| [t("tickets.statuses.#{status}"), status]}
     .field
       = f.label :response, 'Add response:'
       %br
@@ -35,7 +42,3 @@
 
     .actions
       = f.submit 'Reply', class: 'btn btn-default'
-
-= link_to 'Edit', edit_ticket_path(@ticket)
-|
-= link_to 'Back', user_signed_in? ? tickets_path : root_path
