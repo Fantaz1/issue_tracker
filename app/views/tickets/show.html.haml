@@ -28,13 +28,12 @@
   %hr
   %h3 Add response
   = form_for @ticket, url: reply_ticket_path(@ticket), method: :put do |f|
-    .form-inline
-      .form-group
-        = f.label :user_id, 'Reassign to:'
-        = f.select :user_id, User.select([:name, :id]).map{|user| [user.name, user.id]}, include_blank: true
-      .form-group
-        = f.label :status, 'Change ticket status:'
-        = f.select :status, Ticket::STATUSES.map{|status| [t("tickets.statuses.#{status}"), status]}
+    .form-group
+      = f.label :user_id, 'Reassign to:'
+      = f.select :user_id, User.select([:name, :id]).map{|user| [user.name, user.id]}, include_blank: true
+    .form-group
+      = f.label :status, 'Change ticket status:'
+      = f.select :status, Ticket::STATUSES.map{|status| [t("tickets.statuses.#{status}"), status]}
     .field
       = f.label :response, 'Add response:'
       %br
