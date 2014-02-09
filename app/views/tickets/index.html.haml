@@ -8,7 +8,6 @@
         %th Status
         %th Subject
         %th Department
-        %th Body
         %th
     %tbody
       - @tickets.each do |ticket|
@@ -18,7 +17,6 @@
           %td= t("tickets.statuses.#{ticket.status}")
           %td= ticket.subject
           %td= ticket.department
-          %td= ticket.body
           %td= link_to 'Show', ticket
 - else
   %h5

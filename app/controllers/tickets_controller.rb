@@ -5,8 +5,12 @@ class TicketsController < ApplicationController
 
   def index
     @tickets = Ticket.all.includes(:user)
-    @tickets = @tickets.where(status: params[:status]) if params.include?(:status)
-    @tickets = @tickets.where("token = :param OR subject = :param", param: params[:q]) if params.include?(:q)
+
+    if params.include?(:q)
+      @tickets = @tickets.search(params[:q])
+    elsif params.include?(:status)
+      @tickets = @tickets.where(status: params[:status])
+    end
   end
 
   def show

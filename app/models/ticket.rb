@@ -1,5 +1,6 @@
 class Ticket < ActiveRecord::Base
   include PgSearch
+  pg_search_scope :search, against: [:token, :customer_email, :customer_name, :body, :subject, :department, :status]
 
   attr_accessor :response
   has_paper_trail only: [:status, :user_id], on: [:update]
