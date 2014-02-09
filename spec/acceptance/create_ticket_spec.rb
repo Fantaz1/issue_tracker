@@ -25,8 +25,8 @@ feature "As a customer I want be able to add new tickets and see my already exis
 
   scenario "customer was redirected to ticket page from mail link" do
     email = ActionMailer::Base.deliveries.last
-    lnk = email.body.raw_source.scan(/<a.+?href="(.+?)"/)
-    lnk = (lnk.to_s.gsub "http://issue_traker.dev", "")[3..-4]
+    lnk = email.body.raw_source.scan(/<a.+?href="(.+?)"/).flatten[0]
+    lnk = (lnk.to_s.gsub "http://issue_traker.dev", "")
 
     visit lnk
 
