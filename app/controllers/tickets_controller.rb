@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  before_filter :authenticate_user!, only: [:index]
+  before_filter :authenticate_user!, only: [:index, :reply]
 
   before_action :set_ticket, only: [:show, :edit, :update, :history, :reply]
 
