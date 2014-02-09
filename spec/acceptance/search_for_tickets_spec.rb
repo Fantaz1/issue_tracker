@@ -5,7 +5,7 @@ feature "As a user I want be able to find tickets by different params" do
 
   let!(:waiting_for_staff_ticket){ FactoryGirl.create(:ticket, status: 'waiting_for_staff')}
   let!(:waiting_for_customer_ticket){ FactoryGirl.create(:ticket, status: 'waiting_for_customer')}
-  let!(:on_hold_ticket){ FactoryGirl.create(:ticket, status: 'on_hold')}
+  let!(:on_hold_ticket){ FactoryGirl.create(:ticket, status: 'on_hold', body: 'Hello dude')}
   let!(:completed_ticket){ FactoryGirl.create(:ticket, status: 'completed')}
 
   background do
@@ -62,5 +62,25 @@ feature "As a user I want be able to find tickets by different params" do
 
     expect(find('.table tbody')).to have_selector 'tr', count: 1
     expect(find('tbody tr')).to have_content completed_ticket.subject
+  end
+
+  scenario "search for tickets by word from body" do
+    within "#search-form" do
+      fill_in "q", with: 'dude'
+      click_button 'Submit'
+    end
+
+    expect(find('.table tbody')).to have_css('tr', count: 1)
+    expect(find('tbody tr')).to have_content on_hold_ticket.subject
+  end
+
+  scenario "search for tickets by word from body and customer name" do
+    within "#search-form" do
+      fill_in "q", with: "#{on_hold_ticket.customer_name} dude"
+      click_button 'Submit'
+    end
+
+    expect(find('.table tbody')).to have_css('tr', count: 1)
+    expect(find('tbody tr')).to have_content on_hold_ticket.subject
   end
 end

@@ -23,7 +23,7 @@ feature "As a customer I want be able to add new tickets and see my already exis
     expect(page).to have_content "Ticket was successfully created."
   end
 
-  scenario "customer added new ticket, visited a link from mail and see his ticket" do
+  scenario "customer was redirected to ticket page from mail link" do
     email = ActionMailer::Base.deliveries.last
     lnk = email.body.raw_source.scan(/<a.+?href="(.+?)"/)
     lnk = (lnk.to_s.gsub "http://issue_traker.dev", "")[3..-4]
