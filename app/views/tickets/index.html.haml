@@ -5,6 +5,7 @@
       %tr
         %th Customer name
         %th Customer email
+        %th Status
         %th Subject
         %th Department
         %th Body
@@ -14,6 +15,7 @@
         %tr
           %td= ticket.customer_name
           %td= ticket.customer_email
+          %td= t("tickets.statuses.#{ticket.status}")
           %td= ticket.subject
           %td= ticket.department
           %td= ticket.body

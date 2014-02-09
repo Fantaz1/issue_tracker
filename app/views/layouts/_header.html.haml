@@ -19,13 +19,13 @@
               %li
                 = link_to "Open Tickets", tickets_path(status: 'waiting_for_customer')
               %li
-                = link_to "On hold tickets", tickets_path(status: 'on_hold')
+                = link_to "On hold Tickets", tickets_path(status: 'on_hold')
               %li
                 = link_to "Closed Tickets", tickets_path(status: 'completed')
               %li.divider
               %li
                 = link_to "Add ticket", new_ticket_path
-        %form.navbar-form.navbar-left{role: "search", action: tickets_path}
+        %form#search-form.navbar-form.navbar-left{role: "search", action: tickets_path}
           .form-group
             %input.form-control{placeholder: "Search", type: "text", name: 'q'}
           %button.btn.btn-default{type: "submit"} Submit

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    name                  { Faker::Lorem.word }
+    name                  { Random.firstname }
     password              "12345678"
     password_confirmation{ |u| u.password }
   end

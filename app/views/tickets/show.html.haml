@@ -22,12 +22,17 @@
   %strong Body:
   = @ticket.body
 
+- if @ticket.user.present?
+  %p
+    %string Assigned to:
+    = @ticket.user.name
+
 = link_to 'Edit', edit_ticket_path(@ticket), class: 'btn btn-default'
 
 - if user_signed_in?
   %hr
   %h3 Add response
-  = form_for @ticket, url: reply_ticket_path(@ticket), method: :put do |f|
+  = form_for @ticket, url: reply_ticket_path(@ticket), method: :put, html: {id: 'reply_form'} do |f|
     .form-group
       = f.label :user_id, 'Reassign to:'
       = f.select :user_id, User.select([:name, :id]).map{|user| [user.name, user.id]}, include_blank: true

@@ -10,20 +10,20 @@ gem 'thin'
 gem 'devise'
 gem 'compass-rails'
 gem 'paper_trail', '~> 3.0.0'
+gem 'pg_search'
 
 gem 'rails-observers'
 
 gem 'bootstrap-sass', '~> 3.1.0'
 
-group :test, :development do
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'faker'
+group :test do
 end
 
 group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'random_data'
   gem 'factory_girl_rails'
-  gem 'poltergeist'
 end
 
 # Use SCSS for stylesheets

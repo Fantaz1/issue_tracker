@@ -46,7 +46,7 @@ class TicketsController < ApplicationController
   def reply
     if @ticket.update_attributes(reply_params)
       Mailer.response_added(@ticket, reply_params[:response]).deliver
-      redirect_to @ticket
+      redirect_to @ticket, notice: 'Your response was sent.'
     else
       render action: 'show'
     end

@@ -1,4 +1,6 @@
 class Ticket < ActiveRecord::Base
+  include PgSearch
+
   attr_accessor :response
   has_paper_trail only: [:status, :user_id], on: [:update]
 
